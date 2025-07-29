@@ -1,35 +1,50 @@
-name: Deploy Chirpy Blog
+name: Build and Deploy Chirpy
 
 on:
   push:
     branches:
-      - main # or your default branch
+      - main
 
 jobs:
   build:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout source code
+      - name: ✅ Checkout source
         uses: actions/checkout@v3
 
-      - name: Setup Ruby
+      - name: 🧰 Show git config for debugging
+        run: |
+          git config --list || echo "No git config found"
+          git remote -v || echo "No remotes found"
+
+      - name: 💎 Setup Ruby
         uses: ruby/setup-ruby@v1
         with:
           ruby-version: 3.1
           bundler-cache: true
 
-      - name: Install dependencies
+      - name: 📦 Install dependencies
         run: |
           gem install bundler
           bundle install
 
-      - name: Build site with Jekyll
-        run: bundle exec jekyll build
+      - name: 🏗️ Build site with Jekyll
+        run: |
+          echo "Building site..."
+          bundle exec jekyll build
+          echo "Site built successfully."
 
-      - name: Deploy to GitHub Pages
+      - name: 📂 List contents of _site for verification
+        run: |
+          echo "Contents of _site:"
+          ls -al _site || echo "_site directory missing!"
+
+      - name: 🚀 Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_branch: gh-pages
           publish_dir: ./_site
+          publish_branch: gh-pages
+          # Optional: Enable verbose output
+          enable_jekyll: true
