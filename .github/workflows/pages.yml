@@ -11,7 +11,7 @@ jobs:
 
     steps:
       - name: ✅ Checkout source
-        uses: actions/checkout@v3
+        uses: actions/checkout@v5
 
       - name: 🧰 Show git config for debugging
         run: |
@@ -41,7 +41,7 @@ jobs:
           ls -al _site || echo "_site directory missing!"
 
       - name: 🚀 Deploy to GitHub Pages
-        uses: peaceiris/actions-gh-pages@v3
+        uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.PERSONAL_TOKEN }}
           publish_dir: ./_site
