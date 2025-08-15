@@ -1,50 +1,51 @@
-name: Build and Deploy Chirpy
+name: Build and Deploy Jekyll (Chirpy) to GitHub Pages
 
 on:
   push:
-    branches:
-      - main
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: true
 
 jobs:
   build:
     runs-on: ubuntu-latest
-
     steps:
-      - name: ✅ Checkout source
-        uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
-      - name: 🧰 Show git config for debugging
-        run: |
-          git config --list || echo "No git config found"
-          git remote -v || echo "No remotes found"
-
-      - name: 💎 Setup Ruby
-        uses: ruby/setup-ruby@v1
+      # Ruby & bundler
+      - uses: ruby/setup-ruby@v1
         with:
-          ruby-version: 3.1
+          ruby-version: "3.1" # Chirpy works fine on 3.1
           bundler-cache: true
 
-      - name: 📦 Install dependencies
-        run: |
-          gem install bundler
-          bundle install
+      # Install deps declared in your Gemfile (includes jekyll-theme-chirpy)
+      - name: Install dependencies
+        run: bundle install --jobs 4 --retry 3
 
-      - name: 🏗️ Build site with Jekyll
-        run: |
-          echo "Building site..."
-          bundle exec jekyll build
-          echo "Site built successfully."
+      # Build site (no local build; this runs on GitHub)
+      - name: Build Jekyll
+        run: bundle exec jekyll build --trace
 
-      - name: 📂 List contents of _site for verification
-        run: |
-          echo "Contents of _site:"
-          ls -al _site || echo "_site directory missing!"
-
-      - name: 🚀 Deploy to GitHub Pages
-        uses: peaceiris/actions-gh-pages@v3
+      # Hand the built _site to the Pages deployment
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
         with:
-          github_token: ${{ secrets.PERSONAL_TOKEN }}
-          publish_dir: ./_site
-          publish_branch: gh-pages
-          # Optional: Enable verbose output
-          enable_jekyll: true
+          path: _site
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4
