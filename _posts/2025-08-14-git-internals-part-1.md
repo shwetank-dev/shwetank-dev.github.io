@@ -6,9 +6,9 @@ categories: [blog]
 tags: [git, dag]
 ---
 
-The knowledge of Git internals is very helpful for understanding what really happens under the hood when we use commands like `git checkout`, `git commit`, and more. This deeper understanding can help you become a more confident Git user, avoid common pitfalls, recover from Git mishaps without fuss, and not always ask ChatGPT when making Git decisions — such as when to use `git merge` versus `git rebase`.
+The knowledge of Git internals is very helpful for understanding what really happens under the hood when we use commands like `git checkout`, `git commit`, and more. This deeper understanding can help you become a more confident Git user, avoid common pitfalls, recover from Git disasters, and get intuitive at making Git decisions — such as when to use `git merge` versus `git rebase`.
 
-This blog series is written for programmers at an advanced beginner stage — those who are already using Git regularly, are comfortable with basic commands, and are familiar with concepts like pointers, references, trees, objects, and hashes.
+This blog series is written for programmers at an advanced beginner stage — those who are already using Git regularly, are comfortable with basic commands, and are familiar with programming concepts like pointers, references, trees, objects, and hashes.
 
 These posts are **not** a deep dive into Git’s compression mechanisms or diffing algorithms. Instead, the goal is to walk through Git’s internal data structures just enough so you can feel more secure and in control when working with Git every day.
 
