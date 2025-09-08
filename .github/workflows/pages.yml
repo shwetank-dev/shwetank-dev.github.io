@@ -18,7 +18,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
 
       # Ruby & bundler
       - uses: ruby/setup-ruby@v1
@@ -36,7 +36,7 @@ jobs:
 
       # Hand the built _site to the Pages deployment
       - name: Upload artifact
-        uses: actions/upload-pages-artifact@v3
+        uses: actions/upload-pages-artifact@v4
         with:
           path: _site
 
