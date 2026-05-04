@@ -1,0 +1,28 @@
+---
+import { getCollection } from "astro:content";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+
+const posts = await getCollection('blog');
+const allTags = posts.flatMap(post => post.data.tags);
+
+const tagCounts = allTags.reduce((acc, tag) => {
+  acc[tag] = (acc[tag] || 0) + 1;
+  return acc;
+}, {} as Record<string, number>)
+
+const tags = Object.keys(tagCounts).sort();
+---
+
+<BaseLayout>
+  <div class="container">
+  <h1>Tags</h1>
+  <ul class="tags-index">
+    {tags.map(tag => (
+      <li class="tags-index-item">
+        <a href={`/tags/${tag}`} class="tags-index-link">{tag}</a>
+        <span class="tags-index-count">{tagCounts[tag]}</span>
+      </li>
+    ))}
+  </ul>
+  </div>
+</BaseLayout>                               

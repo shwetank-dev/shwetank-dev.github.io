@@ -1,0 +1,15 @@
+---
+import { getCollection } from "astro:content"
+import BaseLayout from "../layouts/BaseLayout.astro"
+import BlogList from "../components/BlogList.astro"
+
+const allBlogs = await getCollection('blog');
+const blogsSortedByDate = allBlogs.sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+---
+
+<BaseLayout>
+  <div class="container">
+    <h1 class="sr-only">All Blogs</h1>
+    <BlogList blogs={blogsSortedByDate} />
+  </div>
+</BaseLayout>

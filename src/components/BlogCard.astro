@@ -1,0 +1,21 @@
+---
+import TagList from './TagList.astro';
+import { formatDate } from '../utils/date.ts';
+
+interface Props {
+  title: string;
+  date: Date;
+  slug: string;
+  tags: string[];
+}
+
+const { title, date, slug, tags } = Astro.props;
+---
+
+<article class="blog-card">
+  <h2 class="blog-card-title"><a href={`/blog/${slug}`} class="blog-card-link">{title}</a></h2>
+  <div class="blog-card-meta">
+    <time datetime={date.toISOString().slice(0, 10)} class="blog-card-date">{formatDate(date)}</time>
+    <TagList tags={tags} />
+  </div>
+</article>

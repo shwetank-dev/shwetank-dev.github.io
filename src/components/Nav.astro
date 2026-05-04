@@ -1,0 +1,19 @@
+<nav class="nav" id="main-nav">
+  <a href="/" class="nav-logo">Shwetank's Blog</a>
+  <div class="nav-menu">
+    <button class="nav-toggle" id="nav-toggle-btn" aria-label="Toggle navigation" type="button">☰</button> 
+    <ul class="nav-links">
+      <li><a href="/tags" class="nav-link">Tags</a></li>
+      <li><a href="/about" class="nav-link">About</a></li>
+    </ul>
+  </div>
+
+</nav>
+<script>
+  const navTogglerBtn = document.querySelector("#nav-toggle-btn");
+  const mainNav = document.querySelector("#main-nav");
+
+  navTogglerBtn!.addEventListener("click", _event => {
+    mainNav!.classList.toggle("nav--open");
+  })
+</script>

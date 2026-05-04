@@ -1,0 +1,33 @@
+---
+import BaseLayout from "./BaseLayout.astro";
+import TagList from "../components/TagList.astro";
+import TableOfContents from "../components/TableOfContents.astro";
+import { formatDate } from "../utils/date.ts";
+
+interface Props {
+  title: string;
+  date: Date;
+  tags: string[];
+  headings: { depth: number; slug: string; text: string }[];
+}
+
+const { title, date, tags, headings } = Astro.props;
+---
+
+<BaseLayout>
+  <div class="post-layout">
+    <aside class="post-toc">
+      <TableOfContents headings={headings} />
+    </aside>
+    <div class="blog-content">
+      <div class="blog-header">
+        <h1 class="blog-title">{title}</h1>
+        <time datetime={date.toISOString().slice(0, 10)} class="blog-date">{formatDate(date)}</time>
+        <TagList tags={tags} />
+      </div>
+      <div class="blog-body">
+        <slot />
+      </div>
+    </div>
+  </div>
+</BaseLayout>

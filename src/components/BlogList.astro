@@ -1,0 +1,16 @@
+---
+import BlogCard from './BlogCard.astro';
+import type { CollectionEntry } from 'astro:content';
+
+interface Props {
+  blogs: Array<CollectionEntry<'blog'>>;
+}
+
+const { blogs } = Astro.props;
+---
+
+<ul class="blog-list">
+  {blogs.map(blog => (
+    <BlogCard title={blog.data.title} date={blog.data.date} slug={blog.id} tags={blog.data.tags} />
+  ))}
+</ul>
