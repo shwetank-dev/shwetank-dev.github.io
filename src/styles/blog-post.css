@@ -78,7 +78,7 @@
 }
 
 .blog-content hr {
-  margin-top: var(--space-8);
+  margin-top: var(--space-16);
   border: none;
   border-top: 1px solid var(--color-border);
 }

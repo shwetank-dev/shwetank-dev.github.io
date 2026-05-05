@@ -1,3 +1,21 @@
 .header {
   border-bottom: 1px solid var(--color-border);
 }
+
+.about-me-hr {
+  border: none;
+  border-top: 1px solid var(--color-border);
+  margin: var(--space-8) 0;
+}
+
+.about-profile {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+  margin: var(--space-8) 0 var(--space-4);
+}
+
+.about-avatar {
+  border-radius: 50%;
+  flex-shrink: 0;
+}
